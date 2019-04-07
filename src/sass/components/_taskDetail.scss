@@ -1,0 +1,131 @@
+.taskList__item {
+    margin-bottom: 20px;
+}
+
+.taskItem,
+.taskDetail {
+    border-radius: 3px;
+    overflow: hidden;
+    box-shadow: 1px 3px 10px #2b2b2baf;
+
+    &__title {
+        display: flex;
+        align-items: center;
+        padding: 10px 20px;
+        font-size: 1.4rem;
+        font-weight: 500;
+        color: #212121;
+
+        &--checkbox {
+            cursor: pointer;
+        }
+
+        &--text {
+            flex-grow: 1;
+            padding-left: 10px;
+        }
+
+        &--iconstar,
+        &--iconstar-full,
+        &--iconedit,
+        &--icontrash {
+            padding: 0 2px 0 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        &--iconstar,
+        &--iconedit {
+            font-size: 1.8rem;
+        }
+
+        &--iconstar-full {
+            font-size: 1.9rem;
+            color: $color-highlight-dark;
+        }
+    }
+
+    &__content {
+        background-color: $color-primary;
+        padding: 20px 25px;
+        font-size: 1.2rem;
+
+        &--deadline {
+            display: flex;
+            margin-bottom: 10px;
+            font-weight: 500;
+
+            div {
+                margin-left: 5px;
+            }
+        }
+
+        &--input {
+            &--date {
+                font-size: 1rem;
+                margin-left: 25px;
+                margin-right: 10px;
+                background-color: $color-primary-light;
+            }
+        }
+
+        &--comment {
+            display: flex;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-weight: 500;
+
+            div {
+                margin-left: 5px;
+            }
+        }
+
+        &--inputcomment {
+            width: calc(100% - 25px);
+            height: 100px;
+            margin-left: 25px;
+            padding: 10px;
+            border: none;
+            box-sizing: border-box;
+            font-size: 1rem;
+            background-color: $color-primary-light;
+        }
+    }
+
+    &__submit {
+        @include flexCenter;
+        background-color: $color-primary-light;
+        height: 60px;
+        font-size: 1.5rem;
+        font-weight: 500;
+        cursor: pointer;
+
+        &--cancel {
+            @include flexCenter;
+            width: 50%;
+            height: 100%;
+            color: $color-cancel;
+        }
+
+        &--save {
+            @include flexCenter;
+            width: 50%;
+            height: 100%;
+            background-color: $color-nav;
+            color: $color-save;
+        }
+    }
+}
+
+.taskDetail {
+    &__title {
+        box-shadow: 0 3px 5px #1f1f1f;
+    
+        &--text {
+            border: none;
+            background-color: transparent;
+            font-size: 1.4rem;
+        }
+    }
+}
