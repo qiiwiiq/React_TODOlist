@@ -8,6 +8,16 @@
 *:focus {
   outline: none; }
 
+body {
+  min-height: 100vh;
+  padding-bottom: 3vw;
+  box-sizing: border-box;
+  font-family: 'Roboto', 'Noto Sans TC', sans-serif;
+  font-size: 16px;
+  background-image: linear-gradient(to top, #001a57, #dc5034), url("img/bg-4.jpg");
+  background-size: cover;
+  background-blend-mode: screen; }
+
 .task__input {
   position: relative; }
 
@@ -221,3 +231,37 @@
 .completeDetail__title,
 .completeDetail__note {
   background-color: #71c6c1; }
+
+.nav {
+  width: 100vw;
+  background-color: #002147;
+  box-shadow: 0 3px 10px #2b2b2baf;
+  position: fixed;
+  z-index: 10; }
+  .nav .tabs {
+    margin: 0 auto;
+    width: 50vw;
+    font-size: 1.5rem;
+    font-weight: 500;
+    display: flex;
+    justify-content: space-around;
+    list-style-type: none;
+    padding: 0; }
+    .nav .tabs li {
+      padding: 1.2vw 5vw;
+      text-align: center;
+      cursor: pointer;
+      color: #A9A9A9; }
+      .nav .tabs li.active {
+        color: #fffaec;
+        border-bottom: #fffaec dotted 4px; }
+
+.tab__content {
+  padding-top: 90px; }
+  .tab__content .task__inprogress {
+    margin: 0 auto;
+    width: 50vw; }
+  .tab__content .task__completed {
+    margin: 0 auto;
+    width: 50vw;
+    display: none; }
