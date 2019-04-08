@@ -14,6 +14,7 @@
     -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <link rel="stylesheet" type="text/css" href="root.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC|Roboto:400,500,700" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.9.3/firebase.js"></script>
@@ -29,17 +30,7 @@
     <title>My TODOs</title>
   </head>
   <body>
-    <div class="nav">
-      <ul class="tabs">
-        <li class="active nav__mytask">My tasks</li>
-        <li class="nav__completed">Completed</li>
-      </ul>
-    </div>
-
-    <div class="tab__content">
-      <div class="task__inprogress"></div>
-      <div class="task__completed"></div>
-    </div>
+    <div id="root"></div>
 
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <!--
@@ -52,6 +43,5 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-    <script type="text/javascript" src="root.js"></script>
   </body>
 </html>

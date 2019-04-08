@@ -11,7 +11,7 @@
     "react-scripts": "2.1.8"
   },
   "scripts": {
-    "compile:sass": "node-sass src/sass/main.scss src/css/style.css",
+    "compile:sass": "node-sass src/sass/main.scss public/style.css",
     "watch:sass": "nodemon -e scss -x \"npm run compile:sass\"",
     "start": "react-scripts start",
     "build": "react-scripts build",

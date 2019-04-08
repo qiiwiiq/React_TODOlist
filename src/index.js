@@ -1,7 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import MyTask from './components/MyTask';
-import Completed from './components/Completed';
+import App from './components/App';
 
-ReactDOM.render(<MyTask />, document.querySelector('.task__inprogress'));
-ReactDOM.render(<Completed />, document.querySelector('.task__completed'));
+ReactDOM.render(<App />, document.getElementById('root'));

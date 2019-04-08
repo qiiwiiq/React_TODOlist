@@ -22,7 +22,7 @@ class Task extends React.Component {
 
     componentDidMount(){
         let {title, deadline, note, order} = this.props.content;
-        console.log(this.props.content);
+        // console.log(this.props.content);
 
         // 初始化
         this.setState({
@@ -121,7 +121,7 @@ class Task extends React.Component {
         this.setState({taskBg: '#8ec06c'});
 
         // 記錄在 state 
-        await this.setState({order: this.props.content.date});
+        await this.setState({order: this.props.content.issueDate});
 
         // 更新資料庫
         this.modifyDatabase();
@@ -137,9 +137,9 @@ class Task extends React.Component {
     // Completed Task
     handleTaskComplete = (e) => {
         let {id, completeTask} = this.props;
-        let {date} = this.props.content;
+        let {issueDate} = this.props.content;
         let {taskTitle, deadline, comment, order} = this.state;
-        let params = {id, date, taskTitle, deadline, comment, order};
+        let params = {id, issueDate, taskTitle, deadline, comment, order};
         completeTask(params);
     }
 

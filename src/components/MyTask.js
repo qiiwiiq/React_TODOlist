@@ -1,8 +1,6 @@
 import React from 'react';
 import Task from './Task';
 import firebase from './Config';
-import '../css/style.css';
-
 
 class MyTask extends React.Component {
     state = {
@@ -25,9 +23,9 @@ class MyTask extends React.Component {
                 let obj = {key: item.key, content: item.val()};
                 orderTask.push(obj);
             });
-            console.log(orderTask);
+            //console.log(orderTask);
             this.setState({taskDatabase: snapshot.val()});
-            console.log(this.state.taskDatabase);
+            //console.log(this.state.taskDatabase);
         });
     }
 
@@ -41,6 +39,7 @@ class MyTask extends React.Component {
         e.preventDefault();
         let {user, time0, inputTask} = this.state; 
         let time = time0 + e.timeStamp;
+        let issueDate = new Date(time).toJSON().slice(0,10)
         let input = e.target.querySelector('input');
         let taskDatabaseRef = firebase.database().ref(`${user}/task`);
         
@@ -50,8 +49,9 @@ class MyTask extends React.Component {
                 title: inputTask, 
                 deadline: '', 
                 note: '', 
-                date: time, 
-                order: time
+                issueDate: issueDate,
+                completeDate: '', 
+                order: issueDate
             });
         }
 
@@ -61,7 +61,6 @@ class MyTask extends React.Component {
         // 讀取資料庫更新狀態
         taskDatabaseRef.orderByChild('order').once('value', (snapshot) => {
             this.setState({taskDatabase: snapshot.val()});
-            console.log(this.state.taskDatabase);
         });
     }
 
@@ -101,16 +100,18 @@ class MyTask extends React.Component {
     // 標記完成的 Task
     completeTask = (params) => {
         let {user} = this.state; 
-        let {id, date, taskTitle, deadline, comment, order} = params;
+        let {id, issueDate, taskTitle, deadline, comment, order} = params;
         let taskDatabaseRef = firebase.database().ref(`${user}/task`);
         let completedTaskDatabaseRef = firebase.database().ref(`${user}/completed`);
-
+        let completeDate = new Date().toJSON().slice(0,10);
+        
         // 記錄在資料庫 task complete 區
         completedTaskDatabaseRef.push({
             title: taskTitle, 
             deadline: deadline, 
             note: comment, 
-            date: date, 
+            issueDate: issueDate,
+            completeDate: completeDate,
             order: order
         });
 
