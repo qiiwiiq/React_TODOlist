@@ -65,15 +65,62 @@ class MyTask extends React.Component {
         });
     }
 
-    // 更新或刪除 Task
-    modifyTask = (e) => {
+    // 更新 Task
+    modifyTask = (params) => {
         let {user} = this.state; 
+        let {id, taskTitle, deadline, comment, order} = params;
         let taskDatabaseRef = firebase.database().ref(`${user}/task`);
+        let taskRef = firebase.database().ref(`${user}/task/${id}`);
+
+        // 更新資料庫
+        taskRef.child('title').set(taskTitle);
+        taskRef.child('deadline').set(deadline);
+        taskRef.child('note').set(comment);
+        taskRef.child('order').set(order);
         
         // 讀取資料庫更新狀態
         taskDatabaseRef.orderByChild('order').once('value', (snapshot) => {
             this.setState({taskDatabase: snapshot.val()});
         });
+    }
+
+    // 刪除 Task
+    deleteTask = (id) => {
+        let {user} = this.state; 
+        let taskDatabaseRef = firebase.database().ref(`${user}/task`);
+
+        // 刪除資料庫的 Task
+        taskDatabaseRef.child(id).remove();
+
+        // 讀取資料庫更新狀態
+        taskDatabaseRef.orderByChild('order').once('value', (snapshot) => {
+            this.setState({taskDatabase: snapshot.val()});
+        });
+    }
+
+    // 標記完成的 Task
+    completeTask = (params) => {
+        let {user} = this.state; 
+        let {id, date, taskTitle, deadline, comment, order} = params;
+        let taskDatabaseRef = firebase.database().ref(`${user}/task`);
+        let completedTaskDatabaseRef = firebase.database().ref(`${user}/completed`);
+
+        // 記錄在資料庫 task complete 區
+        completedTaskDatabaseRef.push({
+            title: taskTitle, 
+            deadline: deadline, 
+            note: comment, 
+            date: date, 
+            order: order
+        });
+
+        // 把已完成的 task 從資料庫 task 區移除
+        taskDatabaseRef.child(id).remove();
+        setTimeout(()=>{
+            taskDatabaseRef.orderByChild('order').once('value', (snapshot) => {
+                this.setState({taskDatabase: snapshot.val()});
+            });
+        }, 2000);
     }
 
     // 繪出每一個 Task
@@ -90,6 +137,8 @@ class MyTask extends React.Component {
                         content={taskDatabase[item]} 
                         user={user}
                         modifyTask={this.modifyTask}
+                        deleteTask={this.deleteTask} 
+                        completeTask={this.completeTask}
                     />
                 );
             }

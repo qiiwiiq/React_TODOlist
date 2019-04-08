@@ -3,9 +3,9 @@ import { FaRegCalendarAlt } from "react-icons/fa";
 
 const NoteDeadline = ({deadline}) => {
     return (
-        <div>
+        <div className="taskNote">
             <FaRegCalendarAlt />
-            <div>{deadline}</div>
+            <div className="taskNote__content">{deadline}</div>
         </div>
     );
 }

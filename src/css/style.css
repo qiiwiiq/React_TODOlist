@@ -17,7 +17,9 @@
   border-radius: 3px;
   border: 3px solid #A9A9A9;
   padding-left: 40px;
-  font-size: 1.2rem;
+  font-family: 'Roboto', 'Noto Sans TC', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 500;
   background-color: #e9eff3;
   color: #212121; }
 
@@ -26,35 +28,42 @@
   top: 10px;
   left: 20px;
   font-size: 1.5rem;
+  font-weight: 500;
   color: #A9A9A9; }
 
 .task__list {
   margin-top: 15px; }
 
-.taskList__item {
+.taskNote {
+  display: flex;
+  align-items: center; }
+  .taskNote__content {
+    padding: 0 20px 0 5px; }
+
+.taskItem {
   margin-bottom: 20px; }
 
-.taskItem,
+.taskSimple,
 .taskDetail {
   border-radius: 3px;
   overflow: hidden;
   box-shadow: 1px 3px 10px #2b2b2baf; }
-  .taskItem__title,
+  .taskSimple__title,
   .taskDetail__title {
     display: flex;
     align-items: center;
     padding: 10px 20px;
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     font-weight: 500;
     color: #212121; }
-    .taskItem__title--checkbox,
+    .taskSimple__title--checkbox,
     .taskDetail__title--checkbox {
       cursor: pointer; }
-    .taskItem__title--text,
+    .taskSimple__title--text,
     .taskDetail__title--text {
       flex-grow: 1;
       padding-left: 10px; }
-    .taskItem__title--iconstar, .taskItem__title--iconstar-full, .taskItem__title--iconedit, .taskItem__title--icontrash,
+    .taskSimple__title--iconstar, .taskSimple__title--iconstar-full, .taskSimple__title--iconedit, .taskSimple__title--icontrash,
     .taskDetail__title--iconstar,
     .taskDetail__title--iconstar-full,
     .taskDetail__title--iconedit,
@@ -63,43 +72,48 @@
       cursor: pointer;
       display: flex;
       align-items: center; }
-    .taskItem__title--iconstar, .taskItem__title--iconedit,
+    .taskSimple__title--iconstar, .taskSimple__title--iconedit,
     .taskDetail__title--iconstar,
     .taskDetail__title--iconedit {
       font-size: 1.8rem; }
-    .taskItem__title--iconstar-full,
+    .taskSimple__title--iconstar-full,
     .taskDetail__title--iconstar-full {
       font-size: 1.9rem;
       color: #fe5000; }
-  .taskItem__content,
+  .taskSimple__content,
   .taskDetail__content {
     background-color: #c7c8ca;
     padding: 20px 25px;
-    font-size: 1.2rem; }
-    .taskItem__content--deadline,
+    font-size: 1.2rem;
+    color: #212121; }
+    .taskSimple__content--deadline,
     .taskDetail__content--deadline {
       display: flex;
       margin-bottom: 10px;
-      font-weight: 500; }
-      .taskItem__content--deadline div,
+      font-weight: 500;
+      color: #212121; }
+      .taskSimple__content--deadline div,
       .taskDetail__content--deadline div {
         margin-left: 5px; }
-    .taskItem__content--input--date,
+    .taskSimple__content--input--date,
     .taskDetail__content--input--date {
-      font-size: 1rem;
+      font-family: 'Roboto', sans-serif;
+      font-size: 1.1rem;
       margin-left: 25px;
       margin-right: 10px;
-      background-color: #e9eff3; }
-    .taskItem__content--comment,
+      padding-left: 10px;
+      background-color: #e9eff3;
+      color: #212121; }
+    .taskSimple__content--comment,
     .taskDetail__content--comment {
       display: flex;
       margin-top: 20px;
       margin-bottom: 10px;
       font-weight: 500; }
-      .taskItem__content--comment div,
+      .taskSimple__content--comment div,
       .taskDetail__content--comment div {
         margin-left: 5px; }
-    .taskItem__content--inputcomment,
+    .taskSimple__content--inputcomment,
     .taskDetail__content--inputcomment {
       width: calc(100% - 25px);
       height: 100px;
@@ -107,9 +121,11 @@
       padding: 10px;
       border: none;
       box-sizing: border-box;
-      font-size: 1rem;
+      font-family: 'Roboto', 'Noto Sans TC', sans-serif;
+      font-size: 1.1rem;
+      color: #212121;
       background-color: #e9eff3; }
-  .taskItem__submit,
+  .taskSimple__submit,
   .taskDetail__submit {
     display: flex;
     justify-content: center;
@@ -119,7 +135,7 @@
     font-size: 1.5rem;
     font-weight: 500;
     cursor: pointer; }
-    .taskItem__submit--cancel,
+    .taskSimple__submit--cancel,
     .taskDetail__submit--cancel {
       display: flex;
       justify-content: center;
@@ -127,7 +143,7 @@
       width: 50%;
       height: 100%;
       color: #B22222; }
-    .taskItem__submit--save,
+    .taskSimple__submit--save,
     .taskDetail__submit--save {
       display: flex;
       justify-content: center;
@@ -137,9 +153,16 @@
       background-color: #002147;
       color: #fffaec; }
 
+.taskSimple__note {
+  display: flex;
+  padding: 0 20px 8px 20px; }
+
 .taskDetail__title {
   box-shadow: 0 3px 5px #1f1f1f; }
   .taskDetail__title--text {
     border: none;
     background-color: transparent;
-    font-size: 1.4rem; }
+    font-size: 1.3rem;
+    font-family: 'Roboto', 'Noto Sans TC', sans-serif;
+    font-weight: 500;
+    color: #212121; }

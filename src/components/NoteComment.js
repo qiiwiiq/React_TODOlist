@@ -3,9 +3,9 @@ import { FaRegCommentDots } from "react-icons/fa";
 
 const NoteComment = ({comment}) => {
     return (
-        <div>
+        <div className="taskNote">
             <FaRegCommentDots />
-            <div>{comment}</div>
+            <div className="taskNote__content">{comment}</div>
         </div>
     );
 }

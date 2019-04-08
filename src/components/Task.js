@@ -1,7 +1,6 @@
 import React from 'react';
 import { TiStarOutline, TiStar, TiPencil } from "react-icons/ti";
 import { FaRegCalendarAlt, FaRegCommentDots, FaTrashAlt } from "react-icons/fa";
-import firebase from './Config';
 import NoteDeadline from './NoteDeadline';
 import NoteComment from './NoteComment';
 
@@ -43,6 +42,14 @@ class Task extends React.Component {
             this.setState({fullStar: 'none'});
             this.setState({taskBg: '#8ec06c'});    
         }
+    }
+
+    // 更新資料庫
+    modifyDatabase = () => {
+        let {id, modifyTask} = this.props;
+        let {taskTitle, deadline, comment, order} = this.state;
+        let params = {id, taskTitle, deadline, comment, order};
+        modifyTask(params);
     }
 
     // 編輯 Task Title
@@ -89,16 +96,7 @@ class Task extends React.Component {
         this.setState({showDetail: 'none'});
 
         // 更新資料庫
-        let {user, id, modifyTask} = this.props;
-        let {taskTitle, deadline, comment} = this.state;
-        
-        let taskDatabaseRef = firebase.database().ref(`${user}/task/${id}`);
-        taskDatabaseRef.child('title').set(taskTitle);
-        taskDatabaseRef.child('deadline').set(deadline);
-        taskDatabaseRef.child('note').set(comment);
-
-        // 更新父元素 taskDatabase 狀態
-        modifyTask(e);
+        this.modifyDatabase();
     };
 
     // 標記重要 task
@@ -112,12 +110,7 @@ class Task extends React.Component {
         await this.setState({order: true});
         
         // 更新資料庫
-        let {user, id, modifyTask} = this.props;
-        let taskDatabaseRef = firebase.database().ref(`${user}/task/${id}`);
-        await taskDatabaseRef.child('order').set(this.state.order);
-
-        // 更新父元素 taskDatabase 狀態
-        modifyTask(e);
+        this.modifyDatabase();
     };
 
     // 取消標記重要 task
@@ -131,25 +124,24 @@ class Task extends React.Component {
         await this.setState({order: this.props.content.date});
 
         // 更新資料庫
-        let {user, id, modifyTask} = this.props;
-        let taskDatabaseRef = firebase.database().ref(`${user}/task/${id}`);
-        await taskDatabaseRef.child('order').set(this.state.order);
-
-        // 更新父元素 taskDatabase 狀態
-        modifyTask(e);
+        this.modifyDatabase();
     };
 
     // 刪除 Task
     removeTask = (e) => {
-        let {id, user, modifyTask} = this.props;
-        let taskDatabaseRef = firebase.database().ref(`${user}/task`);
-        
-        // 刪除資料庫資料
-        taskDatabaseRef.child(id).remove();
-
-        // 更新父元素 taskDatabase 狀態
-        modifyTask(e);
+        let {id, deleteTask} = this.props;
+        // 刪除 database task
+        deleteTask(id);
     };
+
+    // Completed Task
+    handleTaskComplete = (e) => {
+        let {id, completeTask} = this.props;
+        let {date} = this.props.content;
+        let {taskTitle, deadline, comment, order} = this.state;
+        let params = {id, date, taskTitle, deadline, comment, order};
+        completeTask(params);
+    }
 
     // 顯示 Task 備註欄
     renderNoteDeadline = () => {
@@ -175,21 +167,21 @@ class Task extends React.Component {
         let taskBg = { backgroundColor: this.state.taskBg };
 
         let {title} = this.props.content;
-        let {taskTitle, deadline, comment} = this.state;
+        let {deadline, comment} = this.state;
 
         return (
-            <div className="taskList__item">
+            <div className="taskItem">
                 {/* 簡易Task */}
-                <div className="taskItem" style={{...showTask, ...taskBg}}>
-                    <div className="taskItem__title">
-                        <input className="taskItem__title--checkbox" type="checkbox"></input>
-                        <div className="taskItem__title--text">{title}</div>
-                        <div className="taskItem__title--iconstar" style={hollowStar} onClick={this.onStarClick}><TiStarOutline /></div>
-                        <div className="taskItem__title--iconstar-full" style={fullStar} onClick={this.cancelStarClick}><TiStar /></div>
-                        <div className="taskItem__title--iconedit" onClick={this.handleEditClick}><TiPencil /></div>
-                        <div className="taskItem__title--icontrash" onClick={this.removeTask}><FaTrashAlt /></div>
+                <div className="taskSimple" style={{...showTask, ...taskBg}}>
+                    <div className="taskSimple__title">
+                        <input className="taskSimple__title--checkbox" type="checkbox" onClick={this.handleTaskComplete}></input>
+                        <div className="taskSimple__title--text">{title}</div>
+                        <div className="taskSimple__title--iconstar" style={hollowStar} onClick={this.onStarClick}><TiStarOutline /></div>
+                        <div className="taskSimple__title--iconstar-full" style={fullStar} onClick={this.cancelStarClick}><TiStar /></div>
+                        <div className="taskSimple__title--iconedit" onClick={this.handleEditClick}><TiPencil /></div>
+                        <div className="taskSimple__title--icontrash" onClick={this.removeTask}><FaTrashAlt /></div>
                     </div>
-                    <div className="taskItem__note">
+                    <div className="taskSimple__note">
                         {this.renderNoteDeadline()}
                         {this.renderNoteComment()}
                     </div>
@@ -199,7 +191,7 @@ class Task extends React.Component {
                 <div className="taskDetail" style={showDetail}>
                     <div className="taskDetail__title" style={taskBg}>
                         <input className="taskDetail__title--checkbox" type="checkbox"></input>
-                        <input className="taskDetail__title--text" type="text" placeholder={taskTitle} onChange={this.modifyTaskTitle}></input>
+                        <input className="taskDetail__title--text" type="text" placeholder={title} onChange={this.modifyTaskTitle}></input>
                         <div className="taskDetail__title--iconstar" style={hollowStar} onClick={this.onStarClick}><TiStarOutline /></div>
                         <div className="taskDetail__title--iconstar-full" style={fullStar} onClick={this.cancelStarClick}><TiStar /></div>
                         <div className="taskDetail__title--iconedit" onClick={this.handleEditClick}><TiPencil /></div>

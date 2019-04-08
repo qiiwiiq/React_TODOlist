@@ -4,7 +4,7 @@ body {
     height: 100vh;
     padding-bottom: 10vw;
     box-sizing: border-box;
-    font-family: 'Roboto', 微軟正黑體, sans-serif;
+    font-family: 'Roboto', 'Noto Sans TC', sans-serif;
     font-size: 16px;
     background-image: linear-gradient(to top, #0250c5, #d43f8d), url('img/bg-4.jpg');
     background-size: cover;
