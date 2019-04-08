@@ -22,8 +22,7 @@ class Task extends React.Component {
 
     componentDidMount(){
         let {title, deadline, note, order} = this.props.content;
-        // console.log(this.props.content);
-
+        
         // 初始化
         this.setState({
             taskTitle: title, 
@@ -33,7 +32,7 @@ class Task extends React.Component {
         });
 
         // 判斷標記的 Task
-        if(order === true){
+        if(this.props.content.order === true){
             this.setState({hollowStar: 'none'});
             this.setState({fullStar: 'flex'});
             this.setState({taskBg: '#f0b849'});
@@ -52,6 +51,13 @@ class Task extends React.Component {
         modifyTask(params);
     }
 
+    // 按編輯按鈕
+    handleEditClick = (e) => {
+        // UI 
+        this.setState({showTask:'none'});
+        this.setState({showDetail: 'block'});
+    };
+
     // 編輯 Task Title
     modifyTaskTitle = (e) => {
         this.setState({taskTitle: e.target.value});
@@ -65,13 +71,6 @@ class Task extends React.Component {
     // 編輯 comment
     modifyComment = (e) => {
         this.setState({comment: e.target.value});
-    };
-
-    // 按編輯按鈕
-    handleEditClick = (e) => {
-        // UI 
-        this.setState({showTask:'none'});
-        this.setState({showDetail: 'block'});
     };
 
     // 取消編輯
@@ -137,9 +136,8 @@ class Task extends React.Component {
     // Completed Task
     handleTaskComplete = (e) => {
         let {id, completeTask} = this.props;
-        let {issueDate} = this.props.content;
-        let {taskTitle, deadline, comment, order} = this.state;
-        let params = {id, issueDate, taskTitle, deadline, comment, order};
+        let {title, deadline, note, issueDate, order} = this.props.content;
+        let params = {id, issueDate, title, deadline, note, order};
         completeTask(params);
     }
 
@@ -166,8 +164,7 @@ class Task extends React.Component {
         let fullStar = { display: this.state.fullStar };
         let taskBg = { backgroundColor: this.state.taskBg };
 
-        let {title} = this.props.content;
-        let {deadline, comment} = this.state;
+        let {taskTitle, deadline, comment} = this.state;
 
         return (
             <div className="taskItem">
@@ -175,7 +172,7 @@ class Task extends React.Component {
                 <div className="taskSimple" style={{...showTask, ...taskBg}}>
                     <div className="taskSimple__title">
                         <input className="taskSimple__title--checkbox" type="checkbox" onClick={this.handleTaskComplete}></input>
-                        <div className="taskSimple__title--text">{title}</div>
+                        <div className="taskSimple__title--text">{taskTitle}</div>
                         <div className="taskSimple__title--iconstar" style={hollowStar} onClick={this.onStarClick}><TiStarOutline /></div>
                         <div className="taskSimple__title--iconstar-full" style={fullStar} onClick={this.cancelStarClick}><TiStar /></div>
                         <div className="taskSimple__title--iconedit" onClick={this.handleEditClick}><TiPencil /></div>
@@ -191,7 +188,7 @@ class Task extends React.Component {
                 <div className="taskDetail" style={showDetail}>
                     <div className="taskDetail__title" style={taskBg}>
                         <input className="taskDetail__title--checkbox" type="checkbox"></input>
-                        <input className="taskDetail__title--text" type="text" placeholder={title} onChange={this.modifyTaskTitle}></input>
+                        <input className="taskDetail__title--text" type="text" value={taskTitle} onChange={this.modifyTaskTitle}></input>
                         <div className="taskDetail__title--iconstar" style={hollowStar} onClick={this.onStarClick}><TiStarOutline /></div>
                         <div className="taskDetail__title--iconstar-full" style={fullStar} onClick={this.cancelStarClick}><TiStar /></div>
                         <div className="taskDetail__title--iconedit" onClick={this.handleEditClick}><TiPencil /></div>

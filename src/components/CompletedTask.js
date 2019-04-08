@@ -26,9 +26,9 @@ class CompletedTask extends React.Component {
 
     // 刪除 Task
     removeTask = (e) => {
-        let {id, deleteTask} = this.props;
+        let {id, deleteTask_completed} = this.props;
         // 刪除 database task
-        deleteTask(id);
+        deleteTask_completed(id);
     };
 
     // 顯示 Task 備註欄
