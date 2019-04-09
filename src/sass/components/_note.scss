@@ -1,8 +1,25 @@
 .taskNote {
     display: flex;
-    align-items: center;
+    color: $color-text;
+    font-weight: 500;
+
+    &__icon {
+        display: flex;
+        align-items: center;
+        height: 20px; 
+    }
 
     &__content {
-        padding: 0 20px 0 5px;
+        display: flex;
+        align-items: center;
+        height: 20px;
+        padding: 0 10px 0 10px;
+    }
+}
+
+.taskSimple__note .deadline {
+    .taskNote__content {
+        color: $color-warning;
+        padding-right: 30px;
     }
 }

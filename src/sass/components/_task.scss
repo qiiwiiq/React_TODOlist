@@ -1,5 +1,6 @@
 .taskItem,
 .completeItem {
+    position: relative;
     margin-bottom: 20px;
 }
 
@@ -19,35 +20,55 @@
         font-weight: 500;
         color: $color-text;
 
-        &--checkbox {
-            cursor: pointer;
+        &--checkbox--n,
+        &--checkbox--y {
+            position: relative;
+            width: 15px;
+            height: 15px;
+            margin-top:2px; 
+
+            span {
+                position: absolute;
+                top: -3px;
+                left: -3px;
+            }
         }
 
         &--text {
+            color: $color-text-dark;
             flex-grow: 1;
             padding-left: 10px;
         }
 
-        &--iconstar,
-        &--iconstar-full,
         &--iconedit,
         &--icontrash,
         &--iconexpend,
         &--iconcollapse {
-            padding: 0 2px 0 20px;
+            padding: 0 2px 0 13px;
             cursor: pointer;
             display: flex;
             align-items: center;
         }
 
-        &--iconstar,
-        &--iconedit {
-            font-size: 1.8rem;
+        &--iconstar {
+            padding: 0 2px 0 0;
+            font-size: 1.4rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
         }
 
         &--iconstar-full {
-            font-size: 1.9rem;
+            padding: 0 2px 0 0;
+            font-size: 1.5rem;
             color: $color-highlight-dark;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        &--iconedit {
+            font-size: 1.7rem;
         }
     }
 
@@ -56,8 +77,9 @@
         padding: 20px 25px;
         font-size: 1.2rem;
         color: $color-text;
+        position: relative;
 
-
+        &--issuedate,
         &--deadline {
             display: flex;
             margin-bottom: 10px;
@@ -69,15 +91,41 @@
             }
         }
 
+        &--deadline div {
+            color: $color-warning;
+        }
+
+        &--date {
+            width: 75%;
+            height: 30px;
+            box-sizing: border-box;
+            background-color: $color-primary-light;
+            margin-left: 25px;
+            padding: 5px 20px 5px 10px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.1rem;
+            color: $color-text;
+            cursor: default;
+        }
+
         &--input {
-            &--date {
+            &--deadline {
+                width: calc(100% - 25px);
+                height: 30px;
+                box-sizing: border-box;
                 font-family: 'Roboto', sans-serif;
                 font-size: 1.1rem;
                 margin-left: 25px;
-                margin-right: 10px;
                 padding-left: 10px;
+                border-color: transparent;
                 background-color: $color-primary-light;
                 color: $color-text;
+
+                &::-webkit-inner-spin-button { visibility: hidden; }
+
+                &::-webkit-clear-button {
+                    margin-right: -5px;
+                }
             }
         }
 
@@ -118,7 +166,7 @@
             @include flexCenter;
             width: 50%;
             height: 100%;
-            color: $color-cancel;
+            color: $color-warning;
         }
 
         &--save {
@@ -133,9 +181,23 @@
 
 .taskSimple,
 .completeSimple {
+    &__title--text {
+        cursor: default;
+    }
+
     &__note {
+        width: 100%;
         display: flex;
-        padding: 0 20px 8px 20px;
+        justify-content: space-between;
+        padding: 0 10px 8px 20px;
+        font-size: 0.9rem;
+        cursor: default;
+
+        &--left-col {
+            max-width: 72%;
+            display: flex;
+            flex-wrap: wrap;
+        }
     }
 }
 
@@ -159,5 +221,12 @@
     &__title,
     &__note {
         background-color: $color-secondary;
+    }
+
+    &__title {
+        &--checkbox--n,
+        &--checkbox--y {
+            background-color: $color-secondary-light;
+        }
     }
 }

@@ -1,6 +1,7 @@
 import React from 'react';
-import { TiStarOutline, TiStar, TiPencil } from "react-icons/ti";
-import { FaRegCalendarAlt, FaRegCommentDots, FaTrashAlt } from "react-icons/fa";
+import { TiPencil } from "react-icons/ti";
+import { FaRegSquare, FaRegCheckSquare, FaCheck, FaTimes, FaRegStar, FaStar, FaUserEdit, FaRegCalendarAlt, FaBomb, FaRegCommentDots, FaRegTrashAlt } from "react-icons/fa";
+import NoteIssueDate from './NoteIssueDate';
 import NoteDeadline from './NoteDeadline';
 import NoteComment from './NoteComment';
 
@@ -8,11 +9,18 @@ import NoteComment from './NoteComment';
 class Task extends React.Component {
 
     state = {
+        unckecked: 'block',
+        checked: 'none',
         showTask: 'block',
         showDetail: 'none',
         hollowStar: 'flex',
         fullStar: 'none',
-        taskBg: '#8ec06c',
+        checkboxBg: '#e0eed7',
+        taskBg: '#97c578',
+        editNotice: 'none',
+        delTaskNotice: 'none',
+        userEdit_cursor: 'pointer',
+        trash_cursor: 'pointer',
 
         taskTitle: '',
         deadline: '',
@@ -33,13 +41,21 @@ class Task extends React.Component {
 
         // 判斷標記的 Task
         if(this.props.content.order === true){
-            this.setState({hollowStar: 'none'});
-            this.setState({fullStar: 'flex'});
-            this.setState({taskBg: '#f0b849'});
+            this.setState({
+                hollowStar: 'none',
+                fullStar: 'flex',
+                checkboxBg: '#fcefd6',
+                taskBg: '#f0b849'
+            });
+
         } else {
-            this.setState({hollowStar: 'flex'});
-            this.setState({fullStar: 'none'});
-            this.setState({taskBg: '#8ec06c'});    
+            this.setState({
+                hollowStar: 'flex',
+                fullStar: 'none',
+                checkboxBg: '#e0eed7',
+                taskBg: '#97c578'
+            });
+   
         }
     }
 
@@ -54,9 +70,25 @@ class Task extends React.Component {
     // 按編輯按鈕
     handleEditClick = (e) => {
         // UI 
-        this.setState({showTask:'none'});
-        this.setState({showDetail: 'block'});
+        this.setState({
+            showTask:'none',
+            showDetail: 'block'
+        });
     };
+
+    checkEditClick = (e) => {
+        this.setState({
+            editNotice: 'block',
+            userEdit_cursor: 'default'
+        });
+    }
+
+    hideEditNotice = (e) => {
+        this.setState({
+            editNotice: 'none',
+            userEdit_cursor: 'pointer'
+        });
+    }
 
     // 編輯 Task Title
     modifyTaskTitle = (e) => {
@@ -76,8 +108,10 @@ class Task extends React.Component {
     // 取消編輯
     handleCancelClick = (e) => {
         // UI 
-        this.setState({showTask:'block'});
-        this.setState({showDetail: 'none'});
+        this.setState({
+            showTask:'block',
+            showDetail: 'none'
+        });
 
         // 讓 state 恢復成原始狀態
         let {title, deadline, note} = this.props.content;
@@ -91,8 +125,10 @@ class Task extends React.Component {
     // 提交編輯後的 task
     handleSaveClick = (e) => {
         // UI 
-        this.setState({showTask:'block'});
-        this.setState({showDetail: 'none'});
+        this.setState({
+            showTask:'block',
+            showDetail: 'none'
+        });
 
         // 更新資料庫
         this.modifyDatabase();
@@ -101,9 +137,12 @@ class Task extends React.Component {
     // 標記重要 task
     onStarClick = async(e) => {
         // UI 
-        this.setState({hollowStar: 'none'});
-        this.setState({fullStar: 'flex'});
-        this.setState({taskBg: '#f0b849'});
+        this.setState({
+            hollowStar: 'none',
+            fullStar: 'flex',
+            checkboxBg: '#fcefd6',
+            taskBg: '#f0b849'
+        });
 
         // 記錄在 state 
         await this.setState({order: true});
@@ -115,9 +154,12 @@ class Task extends React.Component {
     // 取消標記重要 task
     cancelStarClick = async(e) => {
         // UI 
-        this.setState({hollowStar: 'flex'});
-        this.setState({fullStar: 'none'});
-        this.setState({taskBg: '#8ec06c'});
+        this.setState({
+            hollowStar: 'flex',
+            fullStar: 'none',
+            checkboxBg: '#e0eed7',
+            taskBg: '#97c578'
+        });
 
         // 記錄在 state 
         await this.setState({order: this.props.content.issueDate});
@@ -127,21 +169,65 @@ class Task extends React.Component {
     };
 
     // 刪除 Task
+    confirmRemoveTask = (e) => {
+        this.setState({
+            delTaskNotice:'block',
+            trash_cursor: 'default'
+        });
+    }
+
     removeTask = (e) => {
         let {id, deleteTask} = this.props;
+
+        // 隱藏 delete notice
+        this.setState({
+            delTaskNotice:'none',
+            trash_cursor: 'pointer'
+        });
+
         // 刪除 database task
         deleteTask(id);
     };
 
+    cancelRemoveTask = (e) => {
+        // 隱藏 delete notice
+        this.setState({
+            delTaskNotice:'none',
+            trash_cursor: 'pointer'
+        });
+    }
+
     // Completed Task
-    handleTaskComplete = (e) => {
+    taskCompleted = (e) => {
+        // UI
+        this.setState({
+            unckecked: 'none',
+            checked: 'block'
+        });
+
+        // 處理完成的事件
         let {id, completeTask} = this.props;
         let {title, deadline, note, issueDate, order} = this.props.content;
         let params = {id, issueDate, title, deadline, note, order};
         completeTask(params);
     }
 
+    taskUncompleted = (e) => {
+        // UI
+        this.setState({
+            unckecked: 'block',
+            checked: 'none'
+        });
+    }
+
     // 顯示 Task 備註欄
+    renderNoteIssueDate = () => {
+        let {issueDate} = this.props.content;
+        if(issueDate){
+            return <NoteIssueDate date={issueDate} />
+        }
+    };
+
     renderNoteDeadline = () => {
         let {deadline} = this.state;
         if(deadline){
@@ -156,53 +242,100 @@ class Task extends React.Component {
         }
     };
 
-
+    // 繪製畫面
     render(){
+        let unchecked = { display: this.state.unckecked };
+        let checked = { display: this.state.checked };
         let showTask = { display: this.state.showTask };
         let showDetail = { display: this.state.showDetail };
         let hollowStar = { display: this.state.hollowStar };
         let fullStar = { display: this.state.fullStar };
+        let checkboxBg = { backgroundColor: this.state.checkboxBg };
         let taskBg = { backgroundColor: this.state.taskBg };
+        let userEdit_cursor = { cursor: this.state.userEdit_cursor };
+        let editNotice = { display: this.state.editNotice };
+        let delTaskNotice = { display: this.state.delTaskNotice };
+        let trash_cursor = { cursor: this.state.trash_cursor };
 
         let {taskTitle, deadline, comment} = this.state;
 
         return (
             <div className="taskItem">
+                <div className="delNotice" style={delTaskNotice}>
+                    <div className="delNotice__check">Delete?</div>
+                    <ul className="delNotice__checkItem">
+                        <li className="delNotice__checkItem--y" onClick={this.removeTask}><FaCheck /></li>
+                        <li className="delNotice__checkItem--n" onClick={this.cancelRemoveTask}><FaTimes /></li>
+                    </ul>
+                </div>
+
                 {/* 簡易Task */}
                 <div className="taskSimple" style={{...showTask, ...taskBg}}>
                     <div className="taskSimple__title">
-                        <input className="taskSimple__title--checkbox" type="checkbox" onClick={this.handleTaskComplete}></input>
+                        <div className="taskSimple__title--checkbox--n" style={{...unchecked, ...checkboxBg}} onClick={this.taskCompleted}><span><FaRegSquare /></span></div>
+                        <div className="taskSimple__title--checkbox--y" style={{...checked, ...checkboxBg}} onClick={this.taskUncompleted}><span><FaRegCheckSquare /></span></div>
+
                         <div className="taskSimple__title--text">{taskTitle}</div>
-                        <div className="taskSimple__title--iconstar" style={hollowStar} onClick={this.onStarClick}><TiStarOutline /></div>
-                        <div className="taskSimple__title--iconstar-full" style={fullStar} onClick={this.cancelStarClick}><TiStar /></div>
+                        
+                        <div className="taskSimple__title--iconstar" style={hollowStar} onClick={this.onStarClick}><FaRegStar /></div>
+                        <div className="taskSimple__title--iconstar-full" style={fullStar} onClick={this.cancelStarClick}><FaStar /></div>
                         <div className="taskSimple__title--iconedit" onClick={this.handleEditClick}><TiPencil /></div>
-                        <div className="taskSimple__title--icontrash" onClick={this.removeTask}><FaTrashAlt /></div>
+                        <div className="taskSimple__title--icontrash" style={trash_cursor} onClick={this.confirmRemoveTask}><FaRegTrashAlt /></div>
                     </div>
+
                     <div className="taskSimple__note">
-                        {this.renderNoteDeadline()}
-                        {this.renderNoteComment()}
-                    </div>
+                        <div className="taskSimple__note--left-col">
+                            {this.renderNoteDeadline()}
+                            {this.renderNoteComment()}
+                        </div>
+                        <div className="taskSimple__note--right-col">
+                            {this.renderNoteIssueDate()}
+                        </div>
+                    </div>    
                 </div>
 
                 {/* 詳細Task */}
                 <div className="taskDetail" style={showDetail}>
                     <div className="taskDetail__title" style={taskBg}>
-                        <input className="taskDetail__title--checkbox" type="checkbox"></input>
-                        <input className="taskDetail__title--text" type="text" value={taskTitle} onChange={this.modifyTaskTitle}></input>
-                        <div className="taskDetail__title--iconstar" style={hollowStar} onClick={this.onStarClick}><TiStarOutline /></div>
-                        <div className="taskDetail__title--iconstar-full" style={fullStar} onClick={this.cancelStarClick}><TiStar /></div>
-                        <div className="taskDetail__title--iconedit" onClick={this.handleEditClick}><TiPencil /></div>
-                        <div className="taskDetail__title--icontrash" onClick={this.removeTask}><FaTrashAlt /></div>
+                        <div className="taskDetail__title--checkbox--n" style={{...unchecked, ...checkboxBg}} onClick={this.taskCompleted}><span><FaRegSquare /></span></div>
+                        <div className="taskDetail__title--checkbox--y" style={{...checked, ...checkboxBg}} onClick={this.taskUncompleted}><span><FaRegCheckSquare /></span></div>
+
+                        <input className="taskDetail__title--text" type="text" value={taskTitle} onChange={this.modifyTaskTitle} maxLength="20"></input>
+                        
+                        <div className="taskDetail__title--iconstar" style={hollowStar} onClick={this.onStarClick}><FaRegStar /></div>
+                        <div className="taskDetail__title--iconstar-full" style={fullStar} onClick={this.cancelStarClick}><FaStar /></div>
+                        <div className="taskDetail__title--iconedit" style={userEdit_cursor} onClick={this.checkEditClick}><FaUserEdit /></div>
+                        <div className="taskDetail__title--icontrash" style={trash_cursor} onClick={this.confirmRemoveTask}><FaRegTrashAlt /></div>
                     </div>
 
                     <div className="taskDetail__content">
-                        <div className="taskDetail__content--deadline">
-                            <FaRegCalendarAlt />
-                            <div>Deadline</div>
+                        <div style={editNotice} className="completeEditNotice" onClick={this.hideEditNotice}>
+                            <div><span>Cancel</span><span>取消編輯</span></div>
+                            <div><span>Save</span><span>儲存編輯</span></div>
                         </div>
-                        <div className="taskDetail__content--input">
-                            <input type="date" className="taskDetail__content--input--date" onChange={this.modifyDeadline} value={deadline}></input>
+
+                        <div className="row">
+                            <div className="col-1-2">
+                                <div className="taskDetail__content--issuedate">
+                                    <FaRegCalendarAlt />
+                                    <div>IssueDate</div>
+                                </div>
+                                <div className="taskDetail__content--date">
+                                    <div>{this.props.content.issueDate}</div>
+                                </div>
+                            </div>
+
+                            <div className="col-1-2">
+                                <div className="taskDetail__content--deadline">
+                                    <FaBomb />
+                                    <div>Deadline</div>
+                                </div>
+                                <div className="taskDetail__content--input">
+                                    <input type="date" className="taskDetail__content--input--deadline" onChange={this.modifyDeadline} value={deadline}></input>
+                                </div>
+                            </div>
                         </div>
+
                         <div className="taskDetail__content--comment">
                             <FaRegCommentDots />
                             <div>Comment</div>

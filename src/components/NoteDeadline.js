@@ -1,10 +1,10 @@
 import React from 'react';
-import { FaRegCalendarAlt } from "react-icons/fa";
+import { FaBomb } from "react-icons/fa";
 
 const NoteDeadline = ({deadline}) => {
     return (
-        <div className="taskNote">
-            <FaRegCalendarAlt />
+        <div className="taskNote deadline">
+            <div className="taskNote__icon"><FaBomb /></div>
             <div className="taskNote__content">{deadline}</div>
         </div>
     );

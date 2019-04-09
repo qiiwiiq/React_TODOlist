@@ -47,7 +47,7 @@ class MyTask extends React.Component {
             <div className="task">
                 <div className="task__input">
                     <form onSubmit={this.onTaskSubmit}>
-                        <input className="task__inputarea" type="text" placeholder=" Add Task" onChange={this.onTaskInput}></input>
+                        <input className="task__inputarea" type="text" placeholder=" Add Task (less than 20 char)" onChange={this.onTaskInput} maxLength="20"></input>
                     </form>
                     <div>&#43;</div>
                 </div>

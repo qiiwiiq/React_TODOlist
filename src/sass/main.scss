@@ -1,10 +1,12 @@
-@import "base/base.scss";
+@import "base/base";
+@import "base/utilities";
 
 @import "abstracts/mixin";
 @import "abstracts/variable";
 
 @import "components/input";
 @import "components/note";
-@import "components/taskDetail";
+@import "components/notice";
+@import "components/task";
 
 @import "pages/home";

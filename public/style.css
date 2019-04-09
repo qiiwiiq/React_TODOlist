@@ -18,6 +18,20 @@ body {
   background-size: cover;
   background-blend-mode: screen; }
 
+textarea {
+  resize: none; }
+
+ul {
+  list-style-type: none; }
+
+.row {
+  width: 100%;
+  display: flex;
+  justify-content: space-between; }
+
+.col-1-2 {
+  width: 50%; }
+
 .task__input {
   position: relative; }
 
@@ -25,13 +39,15 @@ body {
   width: 100%;
   height: 50px;
   border-radius: 3px;
-  border: 3px solid #534a4a;
+  border: 3px solid #656565;
   padding-left: 40px;
   font-family: 'Roboto', 'Noto Sans TC', sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
   background-color: #e9eff3;
   color: #212121; }
+  .task__inputarea::-webkit-input-placeholder {
+    font-size: 1rem; }
 
 .task__input div {
   position: absolute;
@@ -39,19 +55,78 @@ body {
   left: 20px;
   font-size: 1.5rem;
   font-weight: 500;
-  color: #534a4a; }
+  color: #656565; }
 
 .task__list {
   margin-top: 15px; }
 
 .taskNote {
   display: flex;
-  align-items: center; }
+  color: #212121;
+  font-weight: 500; }
+  .taskNote__icon {
+    display: flex;
+    align-items: center;
+    height: 20px; }
   .taskNote__content {
-    padding: 0 20px 0 5px; }
+    display: flex;
+    align-items: center;
+    height: 20px;
+    padding: 0 10px 0 10px; }
+
+.taskSimple__note .deadline .taskNote__content {
+  color: #B22222;
+  padding-right: 30px; }
+
+.completeEditNotice {
+  width: 105px;
+  position: absolute;
+  top: 0;
+  right: 25px;
+  background-color: rgba(233, 239, 243, 0.6);
+  padding: 1px 8px 3px 8px;
+  border-radius: 0 0 8px 8px;
+  font-size: 0.75rem;
+  cursor: pointer; }
+  .completeEditNotice div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; }
+
+.delNotice {
+  position: absolute;
+  top: 0;
+  right: -80px;
+  width: 70px;
+  padding: 3px 10px 5px 10px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  background-color: rgba(233, 239, 243, 0.8);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; }
+  .delNotice__check {
+    margin-bottom: 2px;
+    margin-left: 2px; }
+  .delNotice__checkItem li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    height: 25px;
+    color: #e9eff3;
+    cursor: pointer; }
+    .delNotice__checkItem li:not(:last-child) {
+      margin-bottom: 1px; }
+  .delNotice__checkItem--y {
+    background-color: rgba(83, 195, 27, 0.9); }
+  .delNotice__checkItem--n {
+    background-color: rgba(178, 34, 34, 0.9); }
 
 .taskItem,
 .completeItem {
+  position: relative;
   margin-bottom: 20px; }
 
 .taskSimple,
@@ -71,54 +146,75 @@ body {
     font-size: 1.3rem;
     font-weight: 500;
     color: #212121; }
-    .taskSimple__title--checkbox,
-    .taskDetail__title--checkbox,
-    .completeSimple__title--checkbox,
-    .completeDetail__title--checkbox {
-      cursor: pointer; }
+    .taskSimple__title--checkbox--n, .taskSimple__title--checkbox--y,
+    .taskDetail__title--checkbox--n,
+    .taskDetail__title--checkbox--y,
+    .completeSimple__title--checkbox--n,
+    .completeSimple__title--checkbox--y,
+    .completeDetail__title--checkbox--n,
+    .completeDetail__title--checkbox--y {
+      position: relative;
+      width: 15px;
+      height: 15px;
+      margin-top: 2px; }
+      .taskSimple__title--checkbox--n span, .taskSimple__title--checkbox--y span,
+      .taskDetail__title--checkbox--n span,
+      .taskDetail__title--checkbox--y span,
+      .completeSimple__title--checkbox--n span,
+      .completeSimple__title--checkbox--y span,
+      .completeDetail__title--checkbox--n span,
+      .completeDetail__title--checkbox--y span {
+        position: absolute;
+        top: -3px;
+        left: -3px; }
     .taskSimple__title--text,
     .taskDetail__title--text,
     .completeSimple__title--text,
     .completeDetail__title--text {
+      color: #101010;
       flex-grow: 1;
       padding-left: 10px; }
-    .taskSimple__title--iconstar, .taskSimple__title--iconstar-full, .taskSimple__title--iconedit, .taskSimple__title--icontrash, .taskSimple__title--iconexpend, .taskSimple__title--iconcollapse,
-    .taskDetail__title--iconstar,
-    .taskDetail__title--iconstar-full,
+    .taskSimple__title--iconedit, .taskSimple__title--icontrash, .taskSimple__title--iconexpend, .taskSimple__title--iconcollapse,
     .taskDetail__title--iconedit,
     .taskDetail__title--icontrash,
     .taskDetail__title--iconexpend,
     .taskDetail__title--iconcollapse,
-    .completeSimple__title--iconstar,
-    .completeSimple__title--iconstar-full,
     .completeSimple__title--iconedit,
     .completeSimple__title--icontrash,
     .completeSimple__title--iconexpend,
     .completeSimple__title--iconcollapse,
-    .completeDetail__title--iconstar,
-    .completeDetail__title--iconstar-full,
     .completeDetail__title--iconedit,
     .completeDetail__title--icontrash,
     .completeDetail__title--iconexpend,
     .completeDetail__title--iconcollapse {
-      padding: 0 2px 0 20px;
+      padding: 0 2px 0 13px;
       cursor: pointer;
       display: flex;
       align-items: center; }
-    .taskSimple__title--iconstar, .taskSimple__title--iconedit,
+    .taskSimple__title--iconstar,
     .taskDetail__title--iconstar,
-    .taskDetail__title--iconedit,
     .completeSimple__title--iconstar,
-    .completeSimple__title--iconedit,
-    .completeDetail__title--iconstar,
-    .completeDetail__title--iconedit {
-      font-size: 1.8rem; }
+    .completeDetail__title--iconstar {
+      padding: 0 2px 0 0;
+      font-size: 1.4rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center; }
     .taskSimple__title--iconstar-full,
     .taskDetail__title--iconstar-full,
     .completeSimple__title--iconstar-full,
     .completeDetail__title--iconstar-full {
-      font-size: 1.9rem;
-      color: #fe5000; }
+      padding: 0 2px 0 0;
+      font-size: 1.5rem;
+      color: #fe5000;
+      cursor: pointer;
+      display: flex;
+      align-items: center; }
+    .taskSimple__title--iconedit,
+    .taskDetail__title--iconedit,
+    .completeSimple__title--iconedit,
+    .completeDetail__title--iconedit {
+      font-size: 1.7rem; }
   .taskSimple__content,
   .taskDetail__content,
   .completeSimple__content,
@@ -126,31 +222,70 @@ body {
     background-color: #c7c8ca;
     padding: 20px 25px;
     font-size: 1.2rem;
-    color: #212121; }
-    .taskSimple__content--deadline,
+    color: #212121;
+    position: relative; }
+    .taskSimple__content--issuedate, .taskSimple__content--deadline,
+    .taskDetail__content--issuedate,
     .taskDetail__content--deadline,
+    .completeSimple__content--issuedate,
     .completeSimple__content--deadline,
+    .completeDetail__content--issuedate,
     .completeDetail__content--deadline {
       display: flex;
       margin-bottom: 10px;
       font-weight: 500;
       color: #212121; }
-      .taskSimple__content--deadline div,
+      .taskSimple__content--issuedate div, .taskSimple__content--deadline div,
+      .taskDetail__content--issuedate div,
       .taskDetail__content--deadline div,
+      .completeSimple__content--issuedate div,
       .completeSimple__content--deadline div,
+      .completeDetail__content--issuedate div,
       .completeDetail__content--deadline div {
         margin-left: 5px; }
-    .taskSimple__content--input--date,
-    .taskDetail__content--input--date,
-    .completeSimple__content--input--date,
-    .completeDetail__content--input--date {
+    .taskSimple__content--deadline div,
+    .taskDetail__content--deadline div,
+    .completeSimple__content--deadline div,
+    .completeDetail__content--deadline div {
+      color: #B22222; }
+    .taskSimple__content--date,
+    .taskDetail__content--date,
+    .completeSimple__content--date,
+    .completeDetail__content--date {
+      width: 75%;
+      height: 30px;
+      box-sizing: border-box;
+      background-color: #e9eff3;
+      margin-left: 25px;
+      padding: 5px 20px 5px 10px;
+      font-family: 'Roboto', sans-serif;
+      font-size: 1.1rem;
+      color: #212121;
+      cursor: default; }
+    .taskSimple__content--input--deadline,
+    .taskDetail__content--input--deadline,
+    .completeSimple__content--input--deadline,
+    .completeDetail__content--input--deadline {
+      width: calc(100% - 25px);
+      height: 30px;
+      box-sizing: border-box;
       font-family: 'Roboto', sans-serif;
       font-size: 1.1rem;
       margin-left: 25px;
-      margin-right: 10px;
       padding-left: 10px;
+      border-color: transparent;
       background-color: #e9eff3;
       color: #212121; }
+      .taskSimple__content--input--deadline::-webkit-inner-spin-button,
+      .taskDetail__content--input--deadline::-webkit-inner-spin-button,
+      .completeSimple__content--input--deadline::-webkit-inner-spin-button,
+      .completeDetail__content--input--deadline::-webkit-inner-spin-button {
+        visibility: hidden; }
+      .taskSimple__content--input--deadline::-webkit-clear-button,
+      .taskDetail__content--input--deadline::-webkit-clear-button,
+      .completeSimple__content--input--deadline::-webkit-clear-button,
+      .completeDetail__content--input--deadline::-webkit-clear-button {
+        margin-right: -5px; }
     .taskSimple__content--comment,
     .taskDetail__content--comment,
     .completeSimple__content--comment,
@@ -212,10 +347,23 @@ body {
       background-color: #002147;
       color: #fffaec; }
 
+.taskSimple__title--text,
+.completeSimple__title--text {
+  cursor: default; }
+
 .taskSimple__note,
 .completeSimple__note {
+  width: 100%;
   display: flex;
-  padding: 0 20px 8px 20px; }
+  justify-content: space-between;
+  padding: 0 10px 8px 20px;
+  font-size: 0.9rem;
+  cursor: default; }
+  .taskSimple__note--left-col,
+  .completeSimple__note--left-col {
+    max-width: 72%;
+    display: flex;
+    flex-wrap: wrap; }
 
 .taskDetail__title {
   box-shadow: 0 3px 5px #1f1f1f; }
@@ -230,7 +378,12 @@ body {
 .completeSimple__title, .completeSimple__note,
 .completeDetail__title,
 .completeDetail__note {
-  background-color: #71c6c1; }
+  background-color: #a1dad6; }
+
+.completeSimple__title--checkbox--n, .completeSimple__title--checkbox--y,
+.completeDetail__title--checkbox--n,
+.completeDetail__title--checkbox--y {
+  background-color: #f6fcfb; }
 
 .nav {
   width: 100vw;
@@ -241,6 +394,7 @@ body {
   .nav .tabs {
     margin: 0 auto;
     width: 50vw;
+    max-width: 680px;
     font-size: 1.5rem;
     font-weight: 500;
     display: flex;
@@ -257,11 +411,13 @@ body {
         border-bottom: #fffaec dotted 4px; }
 
 .tab__content {
-  padding-top: 90px; }
+  padding-top: 80px; }
   .tab__content .task__inprogress {
     margin: 0 auto;
-    width: 50vw; }
+    width: 50vw;
+    max-width: 680px; }
   .tab__content .task__completed {
     margin: 0 auto;
     width: 50vw;
+    max-width: 680px;
     display: none; }
