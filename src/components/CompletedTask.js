@@ -1,6 +1,7 @@
 import React from 'react';
-import { FaRegSquare, FaRegCheckSquare, FaCheck, FaTimes, FaRegCalendarAlt, FaRegCommentDots, FaEllipsisH, FaTimesCircle, FaRegTrashAlt } from "react-icons/fa";
-import NoteDeadline from './NoteDeadline';
+import { FaRegCalendarCheck, FaBomb, FaRegSquare, FaRegCheckSquare, FaCheck, FaTimes, FaRegCalendarAlt, FaRegCommentDots, FaEllipsisH, FaTimesCircle, FaRegTrashAlt } from "react-icons/fa";
+import NoteIssueDate from './NoteIssueDate';
+import NoteCompleteDate from './NoteCompleteDate';
 import NoteComment from './NoteComment';
 
 class CompletedTask extends React.Component {
@@ -75,16 +76,23 @@ class CompletedTask extends React.Component {
     }
 
     // 顯示 Task 備註欄
-    renderNoteDeadline = () => {
-        let {deadline} = this.props.content;
-        if(deadline !== ''){
-            return <NoteDeadline deadline={deadline} />
+    renderNoteIssueDate = () => {
+        let {issueDate} = this.props.content;
+        if(issueDate){
+            return <NoteIssueDate date={issueDate} />
+        }
+    };
+
+    renderNoteCompleteDate = () => {
+        let {completeDate} = this.props.content;
+        if(completeDate){
+            return <NoteCompleteDate date={completeDate} />
         }
     };
 
     renderNoteComment = () => {
         let {note} = this.props.content;
-        if(note !== ''){
+        if(note){
             return <NoteComment comment={note} />
         }
     };
@@ -120,8 +128,13 @@ class CompletedTask extends React.Component {
                         <div className="completeSimple__title--icontrash" style={trash_cursor} onClick={this.confirmRemoveTask}><FaRegTrashAlt /></div>
                     </div>
                     <div className="completeSimple__note">
-                        {this.renderNoteDeadline()}
-                        {this.renderNoteComment()}
+                        <div className="completeSimple__note--left-col">
+                            {this.renderNoteCompleteDate()}
+                            {this.renderNoteComment()}
+                        </div>
+                        <div className="completeSimple__note--right-col">
+                            {this.renderNoteIssueDate()}
+                        </div>
                     </div>
                 </div>
 
@@ -137,18 +150,43 @@ class CompletedTask extends React.Component {
                     </div>
 
                     <div className="completeDetail__content">
-                        <div className="completeDetail__content--deadline">
-                            <FaRegCalendarAlt />
-                            <div>Deadline</div>
+                        <div className="row">
+                            <div className="col-1-3">
+                                <div className="completeDetail__content--issuedate">
+                                    <FaRegCalendarAlt />
+                                    <div>Issue Date</div>
+                                </div>
+                                <div className="completeDetail__content--recordIssueDate">
+                                    <div>{issueDate}</div>
+                                </div>
+                            </div>
+
+                            <div className="col-1-3">
+                                <div className="completeDetail__content--deadline">
+                                    <FaBomb />
+                                    <div>Deadline</div>
+                                </div>
+                                <div className="completeDetail__content--recordDeadline">
+                                    <div>{deadline}</div>
+                                </div>
+                            </div>
+
+                            <div className="col-1-3">
+                                <div className="completeDetail__content--complete">
+                                    <FaRegCalendarCheck />
+                                    <div>Complete Date</div>
+                                </div>
+                                <div className="completeDetail__content--recordCompleteDate">
+                                    <div>{completeDate}</div>
+                                </div>
+                            </div>
                         </div>
-                        <div className="completeDetail__content--input">
-                            <div className="completeDetail__content--input--date">{deadline}</div>
-                        </div>
+
                         <div className="completeDetail__content--comment">
                             <FaRegCommentDots />
                             <div>Comment</div>
                         </div>
-                        <div className="completeDetail__content--inputcomment">{note}</div>
+                        <div className="completeDetail__content--recordComment">{note}</div>
                     </div>
                 </div>
             </div>

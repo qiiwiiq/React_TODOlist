@@ -26,6 +26,7 @@
             width: 15px;
             height: 15px;
             margin-top:2px; 
+            cursor: pointer;
 
             span {
                 position: absolute;
@@ -80,7 +81,8 @@
         position: relative;
 
         &--issuedate,
-        &--deadline {
+        &--deadline,
+        &--complete {
             display: flex;
             margin-bottom: 10px;
             font-weight: 500;
@@ -91,12 +93,9 @@
             }
         }
 
-        &--deadline div {
-            color: $color-warning;
-        }
-
-        &--date {
-            width: 75%;
+        &--recordIssueDate,
+        &--recordDeadline,
+        &--recordCompleteDate {
             height: 30px;
             box-sizing: border-box;
             background-color: $color-primary-light;
@@ -108,8 +107,17 @@
             cursor: default;
         }
 
-        &--input {
-            &--deadline {
+        &--recordIssueDate,
+        &--recordDeadline {
+            width: 75%;
+        }
+
+        &--recordCompleteDate {
+            width: calc(100% - 25px);
+        }
+
+        &--inputDeadline {
+            input {
                 width: calc(100% - 25px);
                 height: 30px;
                 box-sizing: border-box;
@@ -140,7 +148,7 @@
             }
         }
 
-        &--inputcomment {
+        &--recordComment {
             width: calc(100% - 25px);
             height: 100px;
             margin-left: 25px;
@@ -197,6 +205,10 @@
             max-width: 72%;
             display: flex;
             flex-wrap: wrap;
+
+            .taskNote:first-child {
+                margin-right: 20px;
+            }
         }
     }
 }
@@ -212,6 +224,12 @@
             font-family: 'Roboto', 'Noto Sans TC', sans-serif;
             font-weight: 500;
             color: $color-text;
+        }
+    }
+
+    &__content {
+        &--deadline div {
+            color: $color-warning;
         }
     }
 }

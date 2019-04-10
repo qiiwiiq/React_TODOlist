@@ -318,9 +318,9 @@ class Task extends React.Component {
                             <div className="col-1-2">
                                 <div className="taskDetail__content--issuedate">
                                     <FaRegCalendarAlt />
-                                    <div>IssueDate</div>
+                                    <div>Issue Date</div>
                                 </div>
-                                <div className="taskDetail__content--date">
+                                <div className="taskDetail__content--recordIssueDate">
                                     <div>{this.props.content.issueDate}</div>
                                 </div>
                             </div>
@@ -330,8 +330,8 @@ class Task extends React.Component {
                                     <FaBomb />
                                     <div>Deadline</div>
                                 </div>
-                                <div className="taskDetail__content--input">
-                                    <input type="date" className="taskDetail__content--input--deadline" onChange={this.modifyDeadline} value={deadline}></input>
+                                <div className="taskDetail__content--inputDeadline">
+                                    <input type="date" onChange={this.modifyDeadline} value={deadline}></input>
                                 </div>
                             </div>
                         </div>
@@ -340,7 +340,7 @@ class Task extends React.Component {
                             <FaRegCommentDots />
                             <div>Comment</div>
                         </div>
-                        <textarea className="taskDetail__content--inputcomment" onChange={this.modifyComment} value={comment}></textarea>
+                        <textarea className="taskDetail__content--recordComment" onChange={this.modifyComment} value={comment}></textarea>
                     </div>
 
                     <div type="submit" className="taskDetail__submit">
