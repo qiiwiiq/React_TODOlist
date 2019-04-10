@@ -13,9 +13,9 @@ body {
   box-sizing: border-box;
   font-family: 'Roboto', 'Noto Sans TC', sans-serif;
   font-size: 16px;
-  background-image: linear-gradient(to top, #001a57 1%, #dc5034), url("img/bg-1-min.jpg");
+  background-image: linear-gradient(to top, #777, #777), url("img/bg-2-min.jpg");
   background-size: cover;
-  background-blend-mode: screen;
+  background-blend-mode: multiply;
   text-rendering: optimizeLegibility; }
 
 textarea {
@@ -37,9 +37,9 @@ ul {
 
 .task__input {
   position: relative;
-  width: calc(55vw+150px);
+  width: calc( 55vw + 150px);
   max-width: 850px;
-  margin-bottom: 15px;
+  margin: 0 auto 15px auto;
   padding: 0 100px; }
 
 .task__inputarea {
@@ -432,11 +432,11 @@ ul {
 
 .completeSimple,
 .completeDetail {
-  background-color: #a1dad6; }
+  background-color: #ecb2c0; }
   .completeSimple__title--checkbox--n, .completeSimple__title--checkbox--y,
   .completeDetail__title--checkbox--n,
   .completeDetail__title--checkbox--y {
-    background-color: #f6fcfb; }
+    background-color: #f9e8ec; }
 
 .nav {
   width: 100vw;
@@ -466,11 +466,11 @@ ul {
 .tab__content {
   padding-top: 85px; }
   .tab__content .task__inprogress {
+    width: calc( 55vw + 150px);
     margin: 0 auto;
-    width: calc(55vw+150px);
     max-width: 850px; }
   .tab__content .task__completed {
+    width: calc( 55vw + 150px);
     margin: 0 auto;
-    width: calc(55vw+150px);
     display: none;
     max-width: 850px; }

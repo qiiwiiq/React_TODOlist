@@ -34,14 +34,14 @@
     padding-top: 85px;
     
     .task__inprogress {
+        width: calc( 55vw + 150px );
         margin: 0 auto;
-        width: calc(55vw+150px);
         max-width: 850px;
     }
 
     .task__completed {
+        width: calc( 55vw + 150px );
         margin: 0 auto;
-        width: calc(55vw+150px);
         display: none;
         max-width: 850px;
     }
