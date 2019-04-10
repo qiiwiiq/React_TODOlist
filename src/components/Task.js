@@ -275,7 +275,7 @@ class Task extends React.Component {
                         <div className="taskSimple__title--checkbox--n" style={{...unchecked, ...checkboxBg}} onClick={this.taskCompleted}><span><FaRegSquare /></span></div>
                         <div className="taskSimple__title--checkbox--y" style={{...checked, ...checkboxBg}} onClick={this.taskUncompleted}><span><FaRegCheckSquare /></span></div>
 
-                        <div className="taskSimple__title--text">{taskTitle}</div>
+                        <div className="taskSimple__title--text" onClick={this.handleEditClick}>{taskTitle}</div>
                         
                         <div className="taskSimple__title--iconstar" style={hollowStar} onClick={this.onStarClick}><FaRegStar /></div>
                         <div className="taskSimple__title--iconstar-full" style={fullStar} onClick={this.cancelStarClick}><FaStar /></div>
@@ -283,7 +283,7 @@ class Task extends React.Component {
                         <div className="taskSimple__title--icontrash" style={trash_cursor} onClick={this.confirmRemoveTask}><FaRegTrashAlt /></div>
                     </div>
 
-                    <div className="taskSimple__note">
+                    <div className="taskSimple__note" onClick={this.handleEditClick}>
                         <div className="taskSimple__note--left-col">
                             {this.renderNoteDeadline()}
                             {this.renderNoteComment()}

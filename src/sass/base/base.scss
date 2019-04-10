@@ -10,13 +10,13 @@
 
 body {
     min-height: 100vh;
-    padding-bottom: 3vw;
     box-sizing: border-box;
     font-family: 'Roboto', 'Noto Sans TC', sans-serif;
     font-size: 16px;
-    background-image: linear-gradient(to top, #001a57, #dc5034), url('img/bg-4.jpg');
+    background-image: linear-gradient(to top, #001a57 1%, #dc5034), url('img/bg-1-min.jpg');
     background-size: cover;
     background-blend-mode: screen;
+    text-rendering: optimizeLegibility; 
 }
 
 textarea {

@@ -154,6 +154,40 @@ class App extends React.Component {
     }
 
     // Completed 頁面
+    // 取消標記完成
+    cancelComplete = (params) => {
+        let {user} = this.state; 
+        let {id, issueDate, title, deadline, note, order} = params;
+        let taskDatabaseRef = firebase.database().ref(`${user}/task`);
+        let completedDatabaseRef = firebase.database().ref(`${user}/completed`);
+
+        // 記錄在資料庫 task 區
+        taskDatabaseRef.push({
+            title: title, 
+            deadline: deadline, 
+            note: note, 
+            issueDate: issueDate,
+            completeDate: '', 
+            order: order
+        });
+
+        // 刪除 Completed 資料庫的 Task，兩秒後從畫面消失
+        completedDatabaseRef.child(id).remove();
+        setTimeout(()=>{
+            completedDatabaseRef.orderByChild('issueDate').once('value', (snapshot) => {
+                let orderTask = [];
+                snapshot.forEach(function(item){
+                    let obj = {key: item.key, content: item.val()};
+                    orderTask.push(obj);
+                });
+                this.setState({completedDatabase: orderTask});
+            });
+        }, 2000);
+
+        // 更新 task 資料狀態
+        this.updateTaskDatabase();
+    }
+
     // 刪除 Task
     deleteTask_completed = (id) => {
         let {user} = this.state; 
@@ -198,6 +232,7 @@ class App extends React.Component {
                         <Completed 
                             user={user}
                             completedDatabase={completedDatabase}
+                            cancelComplete={this.cancelComplete}
                             deleteTask_completed={this.deleteTask_completed}
                         />
                     </div>

@@ -51,9 +51,12 @@ class MyTask extends React.Component {
                     </form>
                     <div>&#43;</div>
                 </div>
-                <div className="task__list">
-                    {this.renderTask()}
-                </div>            
+
+                <div className="task__container">
+                    <div className="task__list">
+                        {this.renderTask()}
+                    </div>      
+                </div>
             </div>
         );
     }

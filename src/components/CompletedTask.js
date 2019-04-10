@@ -36,6 +36,12 @@ class CompletedTask extends React.Component {
             unckecked: 'block',
             checked: 'none'
         });
+
+        // 標記成未完成
+        let {id, cancelComplete} = this.props;
+        let {title, deadline, note, issueDate, order} = this.props.content;
+        let params = {id, issueDate, title, deadline, note, order};
+        cancelComplete(params);
     }
 
     taskCompleted = (e) => {
@@ -123,11 +129,11 @@ class CompletedTask extends React.Component {
                         <div className="completeSimple__title--checkbox--y" style={checked} onClick={this.taskUncompleted}><span><FaRegCheckSquare /></span></div>
                         <div className="completeSimple__title--checkbox--n" style={unchecked} onClick={this.taskCompleted}><span><FaRegSquare /></span></div>
 
-                        <div className="completeSimple__title--text">{title}</div>
+                        <div className="completeSimple__title--text" onClick={this.showDetailView}>{title}</div>
                         <div className="completeSimple__title--iconexpend" onClick={this.showDetailView}><FaEllipsisH /></div>
                         <div className="completeSimple__title--icontrash" style={trash_cursor} onClick={this.confirmRemoveTask}><FaRegTrashAlt /></div>
                     </div>
-                    <div className="completeSimple__note">
+                    <div className="completeSimple__note" onClick={this.showDetailView}>
                         <div className="completeSimple__note--left-col">
                             {this.renderNoteCompleteDate()}
                             {this.renderNoteComment()}
@@ -144,12 +150,12 @@ class CompletedTask extends React.Component {
                         <div className="completeDetail__title--checkbox--y" style={checked} onClick={this.taskUncompleted}><span><FaRegCheckSquare /></span></div>
                         <div className="completeDetail__title--checkbox--n" style={unchecked} onClick={this.taskCompleted}><span><FaRegSquare /></span></div>
                     
-                        <div className="completeDetail__title--text">{title}</div>
+                        <div className="completeDetail__title--text" onClick={this.showSimpleView}>{title}</div>
                         <div className="completeDetail__title--iconcollapse" onClick={this.showSimpleView}><FaTimesCircle /></div>
                         <div className="completeDetail__title--icontrash" style={trash_cursor} onClick={this.confirmRemoveTask}><FaRegTrashAlt /></div>
                     </div>
 
-                    <div className="completeDetail__content">
+                    <div className="completeDetail__content" onClick={this.showSimpleView}>
                         <div className="row">
                             <div className="col-1-3">
                                 <div className="completeDetail__content--issuedate">

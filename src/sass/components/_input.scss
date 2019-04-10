@@ -1,6 +1,10 @@
 .task {
     &__input {
         position: relative;
+        width: calc(55vw+150px);
+        max-width: 850px;
+        margin-bottom: 15px;
+        padding: 0 100px;
     }
 
     &__inputarea {
@@ -23,13 +27,9 @@
     &__input div {
         position: absolute;
         top: 10px;
-        left: 20px;
+        left: 120px;
         font-size: 1.5rem;
         font-weight: 500;
         color: $color-text-light;
-    }
-
-    &__list {
-        margin-top: 15px;
     }
 }

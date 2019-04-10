@@ -17,7 +17,7 @@
         padding: 0;
 
         & li {
-            padding: 1.2vw 5vw;
+            padding: 15px 60px;
             text-align: center;
             cursor: pointer;
             color: $color-nav-text;
@@ -31,19 +31,19 @@
 }
 
 .tab__content {
-    padding-top: 80px;
-
+    padding-top: 85px;
+    
     .task__inprogress {
         margin: 0 auto;
-        width: 50vw;
-        max-width: 680px;
+        width: calc(55vw+150px);
+        max-width: 850px;
     }
 
     .task__completed {
         margin: 0 auto;
-        width: 50vw;
-        max-width: 680px;
+        width: calc(55vw+150px);
         display: none;
+        max-width: 850px;
     }
 }
 

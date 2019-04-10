@@ -5,7 +5,7 @@ class Completed extends React.Component {
 
     // 繪出每一個 completed task
     renderCompletedTask = () => {
-        let {user, completedDatabase, deleteTask_completed} = this.props;
+        let {user, completedDatabase, cancelComplete, deleteTask_completed} = this.props;
 
         if(completedDatabase !== []){
             let completedTask = completedDatabase.map((item) => {
@@ -15,6 +15,7 @@ class Completed extends React.Component {
                         id={item.key} 
                         content={item.content} 
                         user={user}
+                        cancelComplete={cancelComplete}
                         deleteTask_completed={deleteTask_completed}
                     />
                 );
@@ -25,8 +26,10 @@ class Completed extends React.Component {
 
     render(){
         return (
-            <div className="completed">
-                {this.renderCompletedTask()}
+            <div className="completed__container">
+                <div className="completed__list">
+                    {this.renderCompletedTask()}
+                </div>
             </div>
         );
     }
